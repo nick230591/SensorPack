@@ -13,9 +13,9 @@
 
 #include <Arduino.h>
 #include "GyverTimer.h"
-#include "config_MQ.h"
+#include "config_MQ3.h"
 
-class MQ
+class MQ3
 {
 
    uint16_t value;      // текущее значение сенсора
@@ -29,7 +29,7 @@ class MQ
    GTimer *timer; // указатель на таймер таймер
 
 public:
-   MQ(byte apin, byte dpin, GTimer *_timer); // конструктор класса
+   MQ3(byte apin, byte dpin, GTimer *_timer); // конструктор класса
    float read_data();                        // считать значение промилле
    void calibrate();                         // калибровка - измерение сопротивления R0
    // getters

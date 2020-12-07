@@ -3,11 +3,10 @@
 #include "GyverTimers.h"
 #include "Debounce.h"
 
-#include "MQ3/MQ.h"
-#include "MQ3/MQ2.h"
+#include "MQ/MQ3.h"
 
 #include "config.h"
-#include "config_MQ.h"
+#include "config_MQ3.h"
 
 // ******************************* TIMERS *********************************
 GTimer SlowEventTimer(MS, timers::update_slow_event_interval); // интервальный таймер для МЕДЛЕННЫХ событий
@@ -15,8 +14,7 @@ GTimer FastEventTimer(MS, timers::update_fast_event_interval); // интерва
 GTimer CalibrateMQTimer(MS);                                   // таймаут таймер для датчика MQ-3
 
 // ******************************* SENSORS *********************************
-MQ mq3(A0, 3, &CalibrateMQTimer); // датчик MQ-3
-MQ2 mq2(A0, 3, &CalibrateMQTimer); // датчик MQ-3
+MQ3 mq3(A0, 3, &CalibrateMQTimer); // датчик MQ-3
 
 // ******************************* BUTTONS *********************************
 Debounce cal_button(CALIBRATE_BUTTON, 80, true, true); // калибровка
@@ -47,11 +45,9 @@ void loop()
     // калибровка MQ-3
     if (slow_event_arr[CALIBRATE_MQ3]) {
       mq3.calibrate();
-      mq2.calibrate();
     }
     else if (mq3.get_start_calibrate()) {
       mq3.calibrate();
-      mq2.calibrate();
     }
 
     // измерение MQ-3
